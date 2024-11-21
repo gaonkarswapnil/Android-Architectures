@@ -4,15 +4,16 @@ import android.provider.CalendarContract.CalendarAlerts
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiServices {
 
-    @GET("/v1/forecast.json?key={key}&q={location}&days={days}&aqi={aqi}&alerts={alert}")
+    @GET("/v1/forecast.json")
     suspend fun getWeatherData(
-        @Path("key") key: String,
-        @Path("location") location: String,
-        @Path("days") days: Int,
-        @Path("aqi") aqi: String,
-        @Path("alerts") alerts: String
+        @Query("key") key: String,
+        @Query("q") location: String,
+        @Query("days") days: Int,
+        @Query("aqi") aqi: String,
+        @Query("alerts") alerts: String
     ): Response<WeatherResponse>
 }

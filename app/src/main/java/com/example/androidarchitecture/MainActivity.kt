@@ -1,12 +1,15 @@
 package com.example.androidarchitecture
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.example.androidarchitecture.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
@@ -20,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val imageView: ImageView = findViewById(R.id.imgWeatherIcon)
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
 //            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -36,7 +40,15 @@ class MainActivity : AppCompatActivity() {
             )
 
             Log.d("Weather Request API",getWeatherData.body().toString())
-            binding.txtTemp.text = getWeatherData.body().toString()
+//            binding.txtTemp.text = getWeatherData.body().toString()
+
+            binding.tvCityName.text = getWeatherData.body()?.location?.name.toString()
+            binding.tvTemperature.text = getWeatherData.body()?.current?.temp_c.toString()
+            binding.tvCondition.text = getWeatherData.body()?.current?.condition?.text.toString()
+
+            Glide.with(this@MainActivity)
+                .load(getWeatherData.body()?.current?.condition?.icon.toString())
+                .into(imageView)
         }
 
 
