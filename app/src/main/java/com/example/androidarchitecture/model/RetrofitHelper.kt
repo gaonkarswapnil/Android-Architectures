@@ -1,4 +1,4 @@
-package com.example.androidarchitecture
+package com.example.androidarchitecture.model
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

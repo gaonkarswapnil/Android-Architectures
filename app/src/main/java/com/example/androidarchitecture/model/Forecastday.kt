@@ -1,4 +1,4 @@
-package com.example.androidarchitecture
+package com.example.androidarchitecture.model
 
 data class Forecastday(
     val astro: Astro,

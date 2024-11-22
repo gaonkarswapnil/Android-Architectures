@@ -1,16 +1,15 @@
-package com.example.androidarchitecture
+package com.example.androidarchitecture.controller
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.androidarchitecture.R
 import com.example.androidarchitecture.databinding.ActivityMainBinding
+import com.example.androidarchitecture.model.RetrofitHelper
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {

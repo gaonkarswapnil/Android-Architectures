@@ -1,4 +1,4 @@
-package com.example.androidarchitecture
+package com.example.androidarchitecture.model
 
 data class Hour(
     val chance_of_rain: Int,
