@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.databinding.ActivityMainBinding
@@ -32,28 +33,39 @@ class MainActivity : AppCompatActivity() {
 //            insets
 //        }
 
-        val request = WeatherRequest(
-            "55ae7587d2194b30bf364918242111",
-            "Kalyan",
-            1,
-            "no",
-            "no"
-        )
+        binding.btnCheckTemp.setOnClickListener {
+            val request = WeatherRequest(
+                "55ae7587d2194b30bf364918242111",
+                binding.etLocation.text.toString()?:"Kalyan",
+                1,
+                "no",
+                "no"
+            )
 
 
-        weatherViewModel.getWeatherData(request).observe(this, Observer { response ->
-            // Update the UI with weather data
-            binding.tvCityName.text = response.location.name
-            binding.tvTemperature.text = response.current.temp_c.toString()
-            binding.tvCondition.text = response.current.condition.text.toString()
+            weatherViewModel.getWeatherData(request).observe(this, Observer { response ->
+                // Update the UI with weather data
+                binding.tvCityName.text = response.location.name
+                binding.tvTemperature.text = "${response.current.temp_c.toString()} °C"
+                binding.tvCondition.text = response.current.condition.text.toString()
 
-            val iconUrl = "https:${response.current.condition.icon}"
-            val imageView: ImageView = findViewById(R.id.imgWeatherIcon)
-            Glide.with(this)
-                .load(iconUrl)
-                .into(imageView)
+                val iconUrl = "https:${response.current.condition.icon}"
+                val imageView: ImageView = findViewById(R.id.imgWeatherIcon)
+                Glide.with(this)
+                    .load(iconUrl)
+                    .into(imageView)
 
-        })
+
+                val data = response.forecast.forecastday[0].hour
+
+                val adapter = WeatherAdapter(data)
+
+                binding.rvForecast.adapter = adapter
+                binding.rvForecast.layoutManager = LinearLayoutManager(this)
+
+            })
+        }
+
 
 //        weatherViewModel.getWeatherData(request)
 
